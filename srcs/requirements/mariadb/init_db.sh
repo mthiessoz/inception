@@ -19,7 +19,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     # Secure initial MariaDB setup
 
     mariadb -uroot -h localhost -e "DROP DATABASE test"
-    mariadb -uroot -h localhost -e "DROP USER ''@'localhost'"
+    mariadb -uroot -h localhost -e "DROP USER ''@'"localhost"'"
     mariadb -uroot -h localhost -e "DROP USER ''@'"$(hostname)"'"
     mariadb -uroot -h localhost -e "CREATE DATABASE $MYSQL_DATABASE"
     mariadb -uroot -h localhost -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'"
@@ -34,3 +34,5 @@ fi
 
 # Start MariaDB in the usual way
 mariadbd-safe --datadir='/var/lib/mysql'
+
+

@@ -8,6 +8,7 @@ RUN 	apt-get install -y php\
 RUN 	wget https://fr.wordpress.org/wordpress-6.3-fr_FR.tar.gz -P /var/www
 RUN 	cd /var/www && tar -xzf wordpress-6.3-fr_FR.tar.gz && rm wordpress-6.3-fr_FR.tar.gz
 RUN		chown -R root:root /var/www/wordpress
+RUN		chown -R www-data:www-data /var/www/
 COPY	conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN 	chmod +x wp-cli.phar
