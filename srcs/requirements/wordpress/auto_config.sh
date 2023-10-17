@@ -2,7 +2,7 @@
 
 MAX_RETRIES=30
 COUNTER=0
-
+# sleep 10000
 # Wait for MariaDB to be ready
 waitForMariaDB() {
     until echo 'SELECT 1' | mysql -h"$MYSQL_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" &> /dev/null || [ $COUNTER -eq $MAX_RETRIES ]; do
@@ -12,6 +12,7 @@ waitForMariaDB() {
     done
 
     if [ $COUNTER -eq $MAX_RETRIES ]; then
+		sleep 999999
         echo "MariaDB not ready after $MAX_RETRIES attempts. Exiting."
         exit 1
     fi
@@ -27,7 +28,7 @@ setupWordPress() {
 }
 
 main() {
-    cd /var/www/html
+    # cd /var/www/html
     waitForMariaDB
     setupWordPress
     /usr/sbin/php-fpm8.2 -F -R

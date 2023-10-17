@@ -10,4 +10,5 @@ RUN apk add mariadb \
 COPY /conf/my.cnf /etc/my.cnf.d/
 COPY	"./init_db.sh" .
 RUN		chmod 0755 init_db.sh
+
 ENTRYPOINT ["./init_db.sh"]
