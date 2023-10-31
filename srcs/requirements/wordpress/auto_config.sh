@@ -22,7 +22,7 @@ setupWordPress() {
     if ! $(wp core is-installed --allow-root); then
         wp core download --allow-root
         echo "DOWNLOADED"
-        wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --dbhost=127.0.0.1 --allow-root
+        wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --allow-root
         echo "CONFIG CREATED"
         wp core install --allow-root --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_ADMIN_USER" --admin_email="$WP_ADMIN_EMAIL" --admin_password="$WP_ADMIN_PASSWORD"
         echo "INSTALLED"
@@ -32,7 +32,7 @@ setupWordPress() {
 }
 
 main() {
-    # cd /var/www/html
+    cd /var/www/html
     # waitForMariaDB
     setupWordPress
     echo "going to run "
@@ -40,7 +40,3 @@ main() {
 }
 
 main
-
-
-trouver un moyen que cette image elle run sans rien
-depuis le terminal wp, faire la commande mysql pour se connecter 

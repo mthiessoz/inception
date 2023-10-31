@@ -1,18 +1,27 @@
 FROM	debian:buster
-RUN		apt-get update && apt-get upgrade
+RUN		apt-get update
 RUN		apt-get -y install wget
 RUN 	apt-get install -y php\
 							php-fpm\
 							php-mysql\
+							curl \
+							zsh \
+							vim \
 							mariadb-client
-RUN 	wget https://fr.wordpress.org/wordpress-6.3-fr_FR.tar.gz -P /var/www
-RUN 	cd /var/www && tar -xzf wordpress-6.3-fr_FR.tar.gz && rm wordpress-6.3-fr_FR.tar.gz
-RUN		chown -R root:root /var/www/wordpress
-RUN		chown -R www-data:www-data /var/www/
+
 COPY	conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN 	chmod +x wp-cli.phar
-RUN 	mv wp-cli.phar /usr/local/bin/wp
+RUN 	chmod +x wp-cli.phar && \
+	 	mv wp-cli.phar /usr/local/bin/wp
 COPY 	auto_config.sh /auto_config.sh
-RUN		chmod +x /auto_config.sh
+
+RUN		chmod +x /auto_config.sh && \
+		mkdir -p /var/www/html /var/log/php && \
+		touch /var/log/php7.3-fpm.log && \
+    	chown -R www-data:www-data /var/www/html && \
+    	chmod 755 /var/log/php && \
+    	chmod 644 /var/log/php7.3-fpm.log
+		
+RUN		mkdir -p /run/php
+
 ENTRYPOINT 	["./auto_config.sh"]

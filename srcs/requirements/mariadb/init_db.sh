@@ -31,19 +31,9 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mariadb -u root -h localhost -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'"
     echo "setup done :D"
     # Shut down the temporary MariaDB instance
-    mysqladmin -u root --password=$MYSQL_ROOT_PASSWORD -h localhost shutdown
+    mysqladmin -u root --password=$MYSQL_ROOT_PASSWORD -h "127.0.0.1" shutdown
     sleep 5
 fi
-
+ 
 # Start MariaDB in the usual way
 mariadbd-safe --datadir='/var/lib/mysql'
-
-
-# mariadbd-safe --datadir='/var/lib/mysql' --no-watch &
-# mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
-# mysql -e "CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-# mysql -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
-# mysql -e "FLUSH PRIVILEGES;"
-# mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown;
-# exec mysqld_safe;
