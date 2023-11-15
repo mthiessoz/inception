@@ -17,7 +17,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     #     fi
     #     sleep 1
     # done
-    sleep 10
+    sleep 15
 
     # Secure initial MariaDB setup
     echo "Starting setup..."
@@ -31,7 +31,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mariadb -u root -h localhost -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'"
     echo "setup done :D"
     # Shut down the temporary MariaDB instance
-    mysqladmin -u root --password=$MYSQL_ROOT_PASSWORD -h "127.0.0.1" shutdown
+    pkill maria
     sleep 5
 fi
  
